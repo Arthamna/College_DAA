@@ -40,7 +40,6 @@ The algo must produce correct output for every possible valid input. How do we p
 	- Maintanance : If it is true before an iteration of the loop, it remains true before the next iteration
 	- Termination : When the loop terminates, the invariant gives us a useful property that helps show that the algorithm is correct.
 		- Simpler terms : identify a property that is true before and after each iteration of a loop, and show it implies the correct result when the loop ends.
-<br>
 
 #### Example : Insertion Sort
 
@@ -61,7 +60,7 @@ for j = 2 to A.length // start from 2nd element
 
 > But, wait, how to make the pseudocode ?  Here : [Abstraction](#abstraction)
 
-&emsp;
+<br>
 Loop invariant analysis 
 > Think of them as : "What is always true about the state of computation at this point ?"
 
@@ -104,14 +103,14 @@ for j = 2 to A.length // c1 // n
 		i = i - 1 // c6 // Σ (j=2 ... n) (tj-1)
 	A[i + 1] = key // c7 // n-1
 ```
-&emsp;
+<br>
 `Σ (j=2 ... n) <=> n as upper bound, and j=2 as lower bound`
-&emsp;
+<br>
 It's not multiplied by sum of $t_j$, it's the input `j`, e.g  $t_2$ , $t_3$ ..., $t_n$ 
-&emsp;
+<br>
 How to actually count t at that index ? How much the index is swapped
 
-&emsp;
+<br>
 So, the total running time is :
 
 ```
