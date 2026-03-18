@@ -1,47 +1,46 @@
 
 Table Of Content :
-- [Algorithm](#algorithm)
-	- [Correctness](#correctness)
-			- [Example : Insertion Sort](#example--insertion-sort)
-	- [Complexity](#complexity)
-			- [Example : Insertion Sort](#example--insertion-sort-1)
-				- [Best Case](#best-case)
-				- [Worst Case](#worst-case)
-- [Framework](#framework)
-	- [Understanding](#understanding)
-	- [Abstraction](#abstraction)
-	- [Designing](#designing)
-			- [Forward Design](#forward-design)
-			- [Backward Design](#backward-design)
-			- [Intuitive Modeling](#intuitive-modeling)
-		- [General Strategies](#general-strategies)
-			- [Incremental](#incremental)
-			- [Greedy](#greedy)
-			- [Divide and Conquer](#divide-and-conquer)
-			- [Dynamic Programming](#dynamic-programming)
-			- [Number Theoretic](#number-theoretic)
-	- [Analysis](#analysis)
-			- [Correctness](#correctness-1)
-			- [Complexity](#complexity-1)
-	- [Implementation](#implementation)
+* 1. [Correctness](#Correctness)
+		* 1.1. [Example : Insertion Sort](#Example:InsertionSort)
+* 2. [Complexity](#Complexity)
+		* 2.1. [Example : Insertion Sort](#Example:InsertionSort-1)
+* 3. [Understanding](#Understanding)
+* 4. [Abstraction](#Abstraction)
+* 5. [Designing](#Designing)
+		* 5.1. [Forward Design](#ForwardDesign)
+		* 5.2. [Backward Design](#BackwardDesign)
+		* 5.3. [Intuitive Modeling](#IntuitiveModeling)
+	* 5.1. [General Strategies](#GeneralStrategies)
+		* 5.1.1. [Incremental](#Incremental)
+		* 5.1.2. [Greedy](#Greedy)
+		* 5.1.3. [Divide and Conquer](#DivideandConquer)
+		* 5.1.4. [Dynamic Programming](#DynamicProgramming)
+		* 5.1.5. [Number Theoretic](#NumberTheoretic)
+* 6. [Analysis](#Analysis)
+		* 6.1. [Correctness](#Correctness-1)
+		* 6.2. [Complexity](#Complexity-1)
+* 7. [Implementation](#Implementation)
 
 ---
 
 
 # Algorithm
 
-Procedure & Computational section
+Procedure & Computational section <br>
 2 Important things about Algorithm Desain :
 ## Correctness
 
 The algo must produce correct output for every possible valid input. How do we prove it ?
-- Proving Methods (Discrete Math, e.g. Direct proof, Indirect proof)
-	- This will take time because we have to find formulation first
+- Proving Methods (Discrete Math, e.g. Direct proof, Indirect proof) 
+	- This will take time because we have to formulation first
+<br>
+
 - Loop Invariant (Cormen, Intro to Algorithms, [Here](https://www.cs.mcgill.ca/~akroit/math/compsci/Cormen%20Introduction%20to%20Algorithms.pdf)) 
 	- Initialization : It is true prior to the first iteration of the loop
 	- Maintanance : If it is true before an iteration of the loop, it remains true before the next iteration
 	- Termination : When the loop terminates, the invariant gives us a useful property that helps show that the algorithm is correct.
 		- Simpler terms : identify a property that is true before and after each iteration of a loop, and show it implies the correct result when the loop ends.
+<br>
 
 #### Example : Insertion Sort
 
@@ -60,9 +59,9 @@ for j = 2 to A.length // start from 2nd element
 	A[i + 1] = key // insert the card
 ```
 
->But, wait, how to make the pseudocode ?  Here : [[#Abstraction]] 
+> But, wait, how to make the pseudocode ?  Here : [Abstraction](#abstraction)
 
-
+&emsp;
 Loop invariant analysis 
 > Think of them as : "What is always true about the state of computation at this point ?"
 
@@ -72,6 +71,8 @@ At start of each iteration `for loop`, the subarray `A[1..j−1]` consists of th
 - Initialization (j = 2) :  `A[1..1]` contains just one element. A single element is trivially sorted
 - Maintenance : Assume `A[1..j-1]` is sorted. The inner while loop shifts elements larger than key (on one position right), then places key in correct spot. After this, `A[1..j]` is sorted, maintaining the invariant for the next iteration
 - Termination (j = n+1) : Ends when j > n. Because each iteration increases j by 1, this will achieved. At that point, subarray `A[1..n]`consists of elements originally in `A[1..n]`, and in sorted order. Because the subarray is the entire array, we conclude that the entire array is sorted. Hence, the algorithm is correct.
+ 
+<br>
 
 ## Complexity
 
@@ -81,6 +82,7 @@ Rule of thumb (RAM Model) :
 	- data mov (assignment, accesing array)
 	- control flow (if, function call, return)
 - Each memory access (reading / writing any cell) takes ONE time step (or memory step, if it make sense)
+<br>
 
 To find running time, where `T(n)`  is a function of input size n :
 - Count how many times each line of the algorithm executes
@@ -102,12 +104,15 @@ for j = 2 to A.length // c1 // n
 		i = i - 1 // c6 // Σ (j=2 ... n) (tj-1)
 	A[i + 1] = key // c7 // n-1
 ```
-
+&emsp;
 `Σ (j=2 ... n) <=> n as upper bound, and j=2 as lower bound`
+&emsp;
 It's not multiplied by sum of $t_j$, it's the input `j`, e.g  $t_2$ , $t_3$ ..., $t_n$ 
+&emsp;
 How to actually count t at that index ? How much the index is swapped
 
-so, the total running time is :
+&emsp;
+So, the total running time is :
 
 ```
 T(n) = c1n + c2(n−1) + c3(n−1) + c4 Σ(j=2.. n)tj + c5 Σ(j=2.. n)(tj−1) + c6 Σ(j=2.. n)(tj−1) + c7 (n−1)
@@ -115,7 +120,7 @@ T(n) = c1n + c2(n−1) + c3(n−1) + c4 Σ(j=2.. n)tj + c5 Σ(j=2.. n)(tj−1) +
 
 Let's check the best and worst case :
 ##### Best Case
-Array is already sorted
+Array is already sorted <br>
 $t_j$ = 1 (because we only run it once, the while cond. never happens)
 
 c4 becomes : `Σ(j=2.. n) 1 = 1 + 1 + ... + 1 (for n-1 (index j=2) ) <=> n-1` 
@@ -127,6 +132,9 @@ T(n) = c1n + (c2 + c3 + c4 + c7)(n − 1)
 <=> an + b 
 ```
 for constants a, b, Which linear : `O(n)`
+
+<br>
+
 ##### Worst Case
 Decreasing order, compared against all previous sorted elements.
 $t_j$ = j
@@ -148,6 +156,7 @@ c4 (n(n+1)/2 − 1)
 
 Since there is $n^2$ , T(n) will be quadratic : `O(n^2)`
 
+<br>
 
 # Framework
 
@@ -220,7 +229,7 @@ Some problems have elegant mathematical solutions that bypass brute-force entire
 
 
 
-Then we can go back to algorithm analysis here : [[#Correctness]]
+Then we can go back to algorithm analysis here : [Correctness](#correctness)
 (Below section is left empty, I'll use it as report template)
 ## Analysis
 #### Correctness 
