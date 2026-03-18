@@ -62,6 +62,7 @@ for j = 2 to A.length // start from 2nd element
 
 <br>
 Loop invariant analysis 
+
 > Think of them as : "What is always true about the state of computation at this point ?"
 
 Invariant condition :
@@ -104,13 +105,16 @@ for j = 2 to A.length // c1 // n
 	A[i + 1] = key // c7 // n-1
 ```
 <br>
+
 `Σ (j=2 ... n) <=> n as upper bound, and j=2 as lower bound`
 <br>
+
 It's not multiplied by sum of $t_j$, it's the input `j`, e.g  $t_2$ , $t_3$ ..., $t_n$ 
 <br>
-How to actually count t at that index ? How much the index is swapped
 
+How to actually count t at that index ? How much the index is swapped
 <br>
+
 So, the total running time is :
 
 ```
@@ -132,10 +136,9 @@ T(n) = c1n + (c2 + c3 + c4 + c7)(n − 1)
 ```
 for constants a, b, Which linear : `O(n)`
 
-<br>
 
 ##### Worst Case
-Decreasing order, compared against all previous sorted elements.
+Decreasing order, compared against all previous sorted elements. <br>
 $t_j$ = j
 
 ```
@@ -161,10 +164,11 @@ Since there is $n^2$ , T(n) will be quadratic : `O(n^2)`
 
 ## Understanding
 
-Problem ?
-Input ?
-Output ?
-Keyword (Regularity/Hint) ?
+- Problem ?
+- Input ?
+- Output ?
+- Keyword (Regularity/Hint) ?
+- 
 ## Abstraction
 
 How to find right pseudocode for our problem ?
@@ -198,7 +202,7 @@ For example :
 If there is K, what is the max of N ?
 #### Intuitive Modeling
 
-Ad hoc ( *latin* : for this) solution. Need understand related theory to formulate the solution only for that problem 
+Ad hoc ( *latin* : for this) solution. Need understand related theory to formulate the solution, which is only for that problem. 
 
 ### General Strategies
 
@@ -223,13 +227,23 @@ the same values exponentially many times; DP stores them and computes each only 
 Some problems have elegant mathematical solutions that bypass brute-force entirely. <br>
 **Example**: computing GCD with Euclid’s algorithm in O(log n) instead of checking all divisors.
 
+<br>
 
+### Summary
 
-
+| If you see...                                      | Think...                                 | Example            |
+|----------------------------------------------------|------------------------------------------|--------------------|
+| "Find min/max of something"                        | Single pass, running aggregate           | Columns, Journey   |
+| "Modular arithmetic, divisibility"                 | GCD, number theory properties            | Unique Numbers     |
+| "Construct the optimal X"                          | Greedy: most-significant first           | Min/Max Numbers    |
+| "Sequence doubles each step"                       | Binary representation, popcount          | Interesting Sequence |
+| "f(n) depends on f(n/a) + f(n/b)"                  | Memoization with map (sparse DP)         | Recursive Function |
+| "n is huge but few distinct states"                | Map-based DP, not array                  | Recursive Function |
 
 
 Then we can go back to algorithm analysis here : [Correctness](#correctness)
 (Below section is left empty, I'll use it as report template)
+
 ## Analysis
 #### Correctness 
 #### Complexity  
